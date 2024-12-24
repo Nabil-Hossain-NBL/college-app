@@ -4,10 +4,10 @@ const Navbar = () => {
   const li = (
     <>
       <li>
-        <Link to={"/"}>Colleges</Link>
+        <Link to={"/colleges"}>Colleges</Link>
       </li>
       <li>
-        <Link to={"/"}>Admission</Link>
+        <Link to={"/admissions"}>Admission</Link>
       </li>
       <li>
         <Link to={"/"}>My College</Link>
