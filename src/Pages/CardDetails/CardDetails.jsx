@@ -10,7 +10,7 @@ const CardDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/college/${id}`)
+      .get(`https://college-app-server-phi.vercel.app/college/${id}`)
       .then((response) => {
         setCollege(response.data);
         setLoading(false);

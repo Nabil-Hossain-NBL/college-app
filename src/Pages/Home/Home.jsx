@@ -15,8 +15,10 @@ const Home = () => {
     setError(null);
 
     const url = query
-      ? `http://localhost:5000/colleges?name=${encodeURIComponent(query)}` // If search query exists, filter colleges
-      : "http://localhost:5000/colleges"; // Otherwise, fetch all colleges
+      ? `https://college-app-server-phi.vercel.app/colleges?name=${encodeURIComponent(
+          query
+        )}` // If search query exists, filter colleges
+      : "https://college-app-server-phi.vercel.app/colleges"; // Otherwise, fetch all colleges
 
     axios
       .get(url)

@@ -23,7 +23,7 @@ const AdmissionForm = ({ collegeId, onClose, collegeName }) => {
   const onSubmit = (data, e) => {
     const formData = { ...data, collegeId, collegeName, userId: user?.uid }; // Include collegeId and userId
 
-    fetch("http://localhost:5000/admission", {
+    fetch("https://college-app-server-phi.vercel.app/admission", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

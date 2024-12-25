@@ -10,7 +10,9 @@ const MyCollege = () => {
   // Fetch college details when the component mounts
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/admissions?userId=${userId}`)
+      .get(
+        `https://college-app-server-phi.vercel.app/admissions?userId=${userId}`
+      )
       .then((response) => {
         setCollegeDetails(response.data[0]);
       })

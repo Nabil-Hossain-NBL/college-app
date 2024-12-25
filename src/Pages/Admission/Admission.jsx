@@ -17,7 +17,7 @@ const Admission = () => {
   // Fetch colleges data
   useEffect(() => {
     axios
-      .get("http://localhost:5000/colleges")
+      .get("https://college-app-server-phi.vercel.app/colleges")
       .then((response) => {
         setColleges(response.data);
         setLoading(false);
@@ -30,7 +30,9 @@ const Admission = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/admissions?userId=${userId}`)
+      .get(
+        `https://college-app-server-phi.vercel.app/admissions?userId=${userId}`
+      )
       .then((response) => {
         if (response.data.length >= 1) {
           setDisable(true); // Disable if admissions exist for the user

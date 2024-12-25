@@ -9,7 +9,7 @@ export const Colleges = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/colleges")
+      .get("https://college-app-server-phi.vercel.app/colleges")
       .then((response) => {
         setColleges(response.data);
       })
