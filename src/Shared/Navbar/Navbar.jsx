@@ -1,23 +1,22 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const Navbar = () => {
-  const li = (
-    <>
-      <li>
-        <Link to={"/colleges"}>Colleges</Link>
-      </li>
-      <li>
-        <Link to={"/admissions"}>Admission</Link>
-      </li>
-      <li>
-        <Link to={"/"}>My College</Link>
-      </li>
-    </>
-  );
+  const { user, logOut } = useContext(AuthContext);
+
+  console.log(user);
+  console.log(user);
+  const handleLogOut = () => {
+    logOut()
+      .then()
+      .catch((error) => console.log(error));
+  };
+
   return (
-    <div className="navbar bg-base-100 z-10 sticky top-0">
-      <div className="navbar-start">
-        <div className="dropdown">
+    <div className="navbar bg-purple-600 h-24">
+      <div className="navbar-start z-20">
+        <div className="dropdown hover:bg-white">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -36,22 +35,81 @@ const Navbar = () => {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-purple-600 rounded-box w-52"
           >
-            {li}
+            <li className=" text-white font-bold ">
+              <Link to="/">Home</Link>
+            </li>
+            <li className=" text-white font-bold ">
+              <Link to="/colleges">Colleges</Link>
+            </li>
+            <li className=" text-white font-bold ">
+              <Link to="/admissions">Admission</Link>
+            </li>
+            <li className=" text-white font-bold ">
+              <Link to="/mycollege">My Colleges</Link>
+            </li>
           </ul>
         </div>
-        <Link to={"/"} className="btn btn-ghost normal-case text-xl">
-          My College
+        <Link
+          to="/"
+          className="btn btn-ghost normal-case text-white font-bold text-xl"
+        >
+          College
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{li}</ul>
+        <ul className="menu menu-horizontal px-1">
+          <li className=" text-white font-bold ">
+            <Link to="/">Home</Link>
+          </li>
+          <li className=" text-white font-bold ">
+            <Link to="/colleges">Colleges</Link>
+          </li>
+          <li className=" text-white font-bold ">
+            <Link to="/admissions">Admission</Link>
+          </li>
+          <li className=" text-white font-bold ">
+            <Link to="/mycollege">My Colleges</Link>
+          </li>
+        </ul>
       </div>
       <div className="navbar-end">
-        <Link to="/login" className="btn btn-active btn-primary text-white">
-          Login
-        </Link>
+        {user ? (
+          <>
+            <p className="text-white">{user?.displayName}</p>
+            <label
+              tabIndex={0}
+              className="btn btn-ghost btn-circle pr-3 avatar"
+            >
+              <div className="w-10 rounded-full">
+                <img alt="" title={user?.displayName} src={user?.photoURL} />
+              </div>
+            </label>
+          </>
+        ) : (
+          <>
+            <label
+              tabIndex={0}
+              className="btn btn-ghost hidden btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                <img alt="" src={user?.photoURL} />
+              </div>
+            </label>
+          </>
+        )}
+        {user ? (
+          <>
+            <button className="btn btn-primary" onClick={handleLogOut}>
+              Logout
+            </button>
+          </>
+        ) : (
+          <Link to="/login" className="btn btn-active btn-primary">
+            Login
+          </Link>
+        )}
       </div>
     </div>
   );

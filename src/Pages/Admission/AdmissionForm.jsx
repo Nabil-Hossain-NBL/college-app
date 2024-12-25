@@ -1,7 +1,17 @@
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../Providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
-const AdmissionForm = ({ collegeId, onClose }) => {
+const AdmissionForm = ({ collegeId, onClose, collegeName }) => {
+  const { user } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+  const handleRedirect = () => {
+    navigate("/mycollege");
+  };
+
   // Initialize react-hook-form
   const {
     register,
@@ -11,7 +21,7 @@ const AdmissionForm = ({ collegeId, onClose }) => {
 
   // Handle form submission
   const onSubmit = (data, e) => {
-    const formData = { ...data, collegeId }; // Include collegeId and userId
+    const formData = { ...data, collegeId, collegeName, userId: user?.uid }; // Include collegeId and userId
 
     fetch("http://localhost:5000/admission", {
       method: "POST",
@@ -31,6 +41,7 @@ const AdmissionForm = ({ collegeId, onClose }) => {
           });
           e.target.reset(); // Reset form fields
           onClose(); // Close the modal
+          handleRedirect();
         } else {
           console.log(result);
           Swal.fire({
@@ -109,7 +120,7 @@ const AdmissionForm = ({ collegeId, onClose }) => {
               {...register("phone", { required: "Phone number is required" })}
               className="w-full p-2 border rounded"
               placeholder="Enter phone number"
-              type="tel"
+              type="number"
             />
             {errors.phone && (
               <span className="text-red-500">{errors.phone.message}</span>
