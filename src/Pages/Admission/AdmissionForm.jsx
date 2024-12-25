@@ -12,23 +12,21 @@ const AdmissionForm = ({ collegeId, onClose, collegeName }) => {
     navigate("/mycollege");
   };
 
-  // Initialize react-hook-form
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  // Handle form submission
   const onSubmit = (data, e) => {
-    const formData = { ...data, collegeId, collegeName, userId: user?.uid }; // Include collegeId and userId
+    const formData = { ...data, collegeId, collegeName, userId: user?.uid };
 
     fetch("https://college-app-server-phi.vercel.app/admission", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData), // Convert formData to JSON format
+      body: JSON.stringify(formData),
     })
       .then((res) => res.json())
       .then((result) => {
